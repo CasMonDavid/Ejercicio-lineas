@@ -43,9 +43,9 @@ function updateSlices() {
 
 // Pizza 1: Algoritmo de punto-pendiente
 function drawPizza1(x, y, radius, numSlices) {
-  fill('#FFD580');
-  stroke(0);
-  ellipse(x, y, radius * 2);
+  //fill('#FFD580');
+  stroke("blue");
+  midpointCircle(x, y, radius);
   stroke(150, 0, 0);
  
   for (let i = 0; i < numSlices; i++) {
@@ -58,9 +58,9 @@ function drawPizza1(x, y, radius, numSlices) {
 
 // Pizza 2: Algoritmo DDA
 function drawPizza2(x, y, radius, numSlices) {
-  fill('#FFA07A');
-  stroke(0);
-  ellipse(x, y, radius * 2);
+  //fill('#FFA07A');
+  stroke("red");
+  midpointCircle(x, y, radius);
   stroke(0, 100, 200);
  
   for (let i = 0; i < numSlices; i++) {
@@ -73,9 +73,9 @@ function drawPizza2(x, y, radius, numSlices) {
 
 // Pizza 3: Algoritmo de Bresenham
 function drawPizza3(x, y, radius, numSlices) {
-  fill('#98FB98');
-  stroke(0);
-  ellipse(x, y, radius * 2);
+  //fill('#98FB98');
+  stroke("green");
+  midpointCircle(x, y, radius);
   stroke(200, 100, 0);
  
   let offset = random(0.0001);
@@ -156,4 +156,35 @@ function lineBresenham(x0, y0, x1, y1) {
       y0 += sy;
     }
   }
+}
+
+
+function midpointCircle(xc, yc, r) {
+  let x = 0;
+  let y = r;
+  let d = 5 / 4 - r // 1 - r;
+  
+  drawCirclePoints(xc, yc, x, y);
+  
+  while (x < y) {
+    x++;
+    if (d < 0) {
+      d += 2 * x + 1;
+    } else {
+      y--;
+      d += 2 * (x - y) + 1;
+    }
+    drawCirclePoints(xc, yc, x, y);
+  }
+}
+
+function drawCirclePoints(xc, yc, x, y) {
+  point(xc + x, yc + y);
+  point(xc - x, yc + y);
+  point(xc + x, yc - y);
+  point(xc - x, yc - y);
+  point(xc + y, yc + x);
+  point(xc - y, yc + x);
+  point(xc + y, yc - x);
+  point(xc - y, yc - x);
 }
